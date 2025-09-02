@@ -1,0 +1,196 @@
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into persona
+                                     -> value(1, "Michelle", "Tellez");
+Query OK, 1 row affected (0.0434 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > select *
+                                     -> from persona;
++----+----------+----------+
+| id | nombre   | apellido |
++----+----------+----------+
+|  1 | Michelle | Tellez   |
++----+----------+----------+
+1 row in set (0.0011 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into persona(id)
+                                     -> value(2);
+Query OK, 1 row affected (0.0439 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > select *
+                                     -> from persona;
++----+----------+----------+
+| id | nombre   | apellido |
++----+----------+----------+
+|  1 | Michelle | Tellez   |
+|  2 | NULL     | NULL     |
++----+----------+----------+
+2 rows in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into persona
+                                     -> value(2,"Juan","Perez"),(3, "Paola","x"),(4,"Pedro","M"),(5,"Juan","H");
+Query OK, 4 rows affected (0.0043 sec)
+
+Records: 4  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > select *
+                                     -> from persona;
++----+----------+----------+
+| id | nombre   | apellido |
++----+----------+----------+
+|  1 | Michelle | Tellez   |
+|  2 | NULL     | NULL     |
+|  2 | Juan     | Perez    |
+|  3 | Paola    | x        |
+|  4 | Pedro    | M        |
+|  5 | Juan     | H        |
++----+----------+----------+
+6 rows in set (0.0011 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > delete from persona where nombre is null;
+Query OK, 1 row affected (0.0052 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from persona;
++----+----------+----------+
+| id | nombre   | apellido |
++----+----------+----------+
+|  1 | Michelle | Tellez   |
+|  2 | Juan     | Perez    |
+|  3 | Paola    | x        |
+|  4 | Pedro    | M        |
+|  5 | Juan     | H        |
++----+----------+----------+
+5 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > desc customer;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| cust_id   | int          | NO   | PRI | NULL    | auto_increment |
+| cust_name | varchar(50)  | NO   |     | NULL    |                |
+| address   | varchar(100) | YES  |     | NULL    |                |
+| phone     | varchar(50)  | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.0133 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into customer(cust_name)
+                                     -> value ("Yo mero");
+Query OK, 1 row affected (0.0142 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from customer;
++---------+-----------+---------+-------+
+| cust_id | cust_name | address | phone |
++---------+-----------+---------+-------+
+|       1 | Yo mero   | NULL    | NULL  |
++---------+-----------+---------+-------+
+1 row in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into customer(cust_id, cust_name)
+                                     -> value (4,"Juan");
+Query OK, 1 row affected (0.0043 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > selct * from costomer;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selct * from costomer' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from customer;
++---------+-----------+---------+-------+
+| cust_id | cust_name | address | phone |
++---------+-----------+---------+-------+
+|       1 | Yo mero   | NULL    | NULL  |
+|       4 | Juan      | NULL    | NULL  |
++---------+-----------+---------+-------+
+2 rows in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into customer(cust_name)
+                                     -> value ("John Connor");
+Query OK, 1 row affected (0.0033 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from customer;
++---------+-------------+---------+-------+
+| cust_id | cust_name   | address | phone |
++---------+-------------+---------+-------+
+|       1 | Yo mero     | NULL    | NULL  |
+|       4 | Juan        | NULL    | NULL  |
+|       5 | John Connor | NULL    | NULL  |
++---------+-------------+---------+-------+
+3 rows in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > show create table customer;
++----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                    |
++----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| customer | CREATE TABLE `customer` (
+  `cust_id` int NOT NULL AUTO_INCREMENT,
+  `cust_name` varchar(50) NOT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`cust_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into  customer(address)
+                                     -> value ("Av. Industrias 11101, Complejo Ind");
+ERROR: 1364 (HY000): Field 'cust_name' doesn't have a default value
+ MySQL  localhost:3306 ssl  tbd1  SQL > desc customer;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| cust_id   | int          | NO   | PRI | NULL    | auto_increment |
+| cust_name | varchar(50)  | NO   |     | NULL    |                |
+| address   | varchar(100) | YES  |     | NULL    |                |
+| phone     | varchar(50)  | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into persona
+                                     -> value();
+Query OK, 1 row affected (0.0045 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from persona;
++------+----------+----------+
+| id   | nombre   | apellido |
++------+----------+----------+
+|    1 | Michelle | Tellez   |
+|    2 | Juan     | Perez    |
+|    3 | Paola    | x        |
+|    4 | Pedro    | M        |
+|    5 | Juan     | H        |
+|    1 | Michelle | Tellez   |
+| NULL | NULL     | NULL     |
++------+----------+----------+
+7 rows in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into persona
+                                     -> (nombre, apellido) value ("e","p"),("j","p");
+Query OK, 2 rows affected (0.0070 sec)
+
+Records: 2  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > desc customer;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| cust_id   | int          | NO   | PRI | NULL    | auto_increment |
+| cust_name | varchar(50)  | NO   |     | NULL    |                |
+| address   | varchar(100) | YES  |     | NULL    |                |
+| phone     | varchar(50)  | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > select coust(*) from customer;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) from customer' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > select count(*) from customer;
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.0112 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > select count(*) from customer;
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.0053 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > select count(*) from persona;
++----------+
+| count(*) |
++----------+
+|        9 |
++----------+
+1 row in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > show tables;
++----------------+
+| Tables_in_tbd1 |
++----------------+
+| customer       |
+| persona        |
+| student        |
++----------------+
+3 rows in set (0.0063 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > select count(*) from student;
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.0076 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL >
