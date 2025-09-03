@@ -1,0 +1,312 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. Todos los derechos reservados.
+
+Instale la versión más reciente de PowerShell para obtener nuevas características y mejoras. https://aka.ms/PSWindows
+
+PS C:\Users\Miche> mysqlsh
+MySQL Shell 8.0.43
+
+Copyright (c) 2016, 2025, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 21
+Server version: 8.0.43 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| abarrotes          |
+| biblioteca         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| prueba             |
+| sakila             |
+| sys                |
+| tbd1               |
+| world              |
++--------------------+
+10 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  SQL > show tables;
+ERROR: 1046 (3D000): No database selected
+ MySQL  localhost:3306 ssl  SQL > show tables;
+ERROR: 1046 (3D000): No database selected
+ MySQL  localhost:3306 ssl  SQL > use tbd1;
+Default schema set to `tbd1`.
+Fetching global names, object names from `tbd1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd1  SQL > show tables;
++----------------+
+| Tables_in_tbd1 |
++----------------+
+| customer       |
+| persona        |
+| student        |
++----------------+
+3 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > desc student;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| ssn          | varchar(11)  | NO   | PRI | NULL    |       |
+| name         | varchar(50)  | NO   |     | NULL    |       |
+| home_phone   | varchar(15)  | YES  |     | NULL    |       |
+| address      | varchar(50)  | NO   |     | NULL    |       |
+| office_phone | varchar(15)  | YES  |     | NULL    |       |
+| age          | int          | NO   |     | NULL    |       |
+| gpa          | decimal(3,2) | NO   |     | NULL    |       |
++--------------+--------------+------+--value("231-3213","JHON","SDF",20,3,1);
+ MySQL  localhost:3306 ssl  tbd1  SQL > desc student;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| ssn          | varchar(11)  | NO   | PRI | NULL    |       |
+| name         | varchar(50)  | NO   |     | NULL    |       |
+| home_phone   | varchar(15)  | YES  |     | NULL    |       |
+| address      | varchar(50)  | NO   |     | NULL    |       |
+| office_phone | varchar(15)  | YES  |     | NULL    |       |
+| age          | int          | NO   |     | NULL    |       |
+| gpa          | decimal(3,2) | NO   |     | 5.10    |       |
++--------------+--------------+------+-----+---------+-------+
+7 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into student(ssn, name, address, age)
+                                     -> value("ASDF","asdf", "asdfg", 10);
+Query OK, 1 row affected (0.0072 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from student;
++------+------+------------+---------+--------------+-----+------+
+| ssn  | name | home_phone | address | office_phone | age | gpa  |
++------+------+------------+---------+--------------+-----+------+
+| ASDF | asdf | NULL       | asdfg   | NULL         |  10 | 5.10 |
++------+------+------------+---------+--------------+-----+------+
+1 row in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into student(ssn, name, address, age, gpa)
+                                     -> value("123_1234", "Michi", "SDF", 20, 2, 1);
+ERROR: 1136 (21S01): Column count doesn't match value count at row 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from student;
++------+------+------------+---------+--------------+-----+------+
+| ssn  | name | home_phone | address | office_phone | age | gpa  |
++------+------+------------+---------+--------------+-----+------+
+| ASDF | asdf | NULL       | asdfg   | NULL         |  10 | 5.10 |
++------+------+------------+---------+--------------+-----+------+
+1 row in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > alter table student
+                                     -> modify age int not null check(age >= 0);
+Query OK, 1 row affected (0.0573 sec)
+
+Records: 1  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > desc student;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| ssn          | varchar(11)  | NO   | PRI | NULL    |       |
+| name         | varchar(50)  | NO   |     | NULL    |       |
+| home_phone   | varchar(15)  | YES  |     | NULL    |       |
+| address      | varchar(50)  | NO   |     | NULL    |       |
+| office_phone | varchar(15)  | YES  |     | NULL    |       |
+| age          | int          | NO   |     | NULL    |       |
+| gpa          | decimal(3,2) | NO   |     | 5.10    |       |
++--------------+--------------+------+-----+---------+-------+
+7 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > desc student ;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| ssn          | varchar(11)  | NO   | PRI | NULL    |       |
+| name         | varchar(50)  | NO   |     | NULL    |       |
+| home_phone   | varchar(15)  | YES  |     | NULL    |       |
+| address      | varchar(50)  | NO   |     | NULL    |       |
+| office_phone | varchar(15)  | YES  |     | NULL    |       |
+| age          | int          | NO   |     | NULL    |       |
+| gpa          | decimal(3,2) | NO   |     | 5.10    |       |
++--------------+--------------+------+-----+---------+-------+
+7 rows in set (0.0016 sec)
+ M
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from student;
++------+------+------------+---------+--------------+-----+------+
+| ssn  | name | home_phone | address | office_phone | age | gpa  |
++------+------+------------+---------+--------------+-----+------+
+| ASDF | asdf | NULL       | asdfg   | NULL         |  10 | 5.10 |
++------+------+------------+---------+--------------+-----+------+
+1 row in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > create temporary table prueba(
+                                     -> id int not null auto_increment key,
+                                     -> dato varchar(50));
+Query OK, 0 rows affected (0.0019 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > show tables;
++----------------+
+| Tables_in_tbd1 |
++----------------+
+| customer       |
+| persona        |
+| student        |
++----------------+
+3 rows in set (0.0013 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > desc prueba;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| dato  | varchar(50) | YES  |     | NULL    | NULL           |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > insert into prueba(dato)
+                                     -> values("aasdf"), ("rty"),("234");
+Query OK, 3 rows affected (0.0048 sec)
+
+Records: 3  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from prueba;
++----+-------+
+| id | dato  |
++----+-------+
+|  1 | aasdf |
+|  2 | rty   |
+|  3 | 234   |
++----+-------+
+3 rows in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > \desconnet
+Unknown command: '\desconnet'
+ MySQL  localhost:3306 ssl  tbd1  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 22
+Server version: 8.0.43 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use tbd1;
+Default schema set to `tbd1`.
+Fetching global names, object names from `tbd1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from prueba;
+ERROR: 1146 (42S02): Table 'tbd1.prueba' doesn't exist
+ MySQL  localhost:3306 ssl  tbd1  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| abarrotes          |
+| biblioteca         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| prueba             |
+| sakila             |
+| sys                |
+| tbd1               |
+| world              |
++--------------------+
+10 rows in set (0.0011 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  sakila  SQL > show tables;
++----------------------------+
+| Tables_in_sakila           |
++----------------------------+
+| actor                      |
+| actor_info                 |
+| address                    |
+| category                   |
+| city                       |
+| country                    |
+| customer                   |
+| customer_list              |
+| film                       |
+| film_actor                 |
+| film_category              |
+| film_list                  |
+| film_text                  |
+| inventory                  |
+| language                   |
+| nicer_but_slower_film_list |
+| payment                    |
+| rental                     |
+| sales_by_film_category     |
+| sales_by_store             |
+| staff                      |
+| staff_list                 |
+| store                      |
++----------------------------+
+23 rows in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > desc customer;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| customer_id | smallint unsigned | NO   | PRI | NULL              | auto_increment                                |
+| store_id    | tinyint unsigned  | NO   | MUL | NULL              |                                               |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   | MUL | NULL              |                                               |
+| email       | varchar(50)       | YES  |     | NULL              |                                               |
+| address_id  | smallint unsigned | NO   | MUL | NULL              |                                               |
+| active      | tinyint(1)        | NO   |     | 1                 |                                               |
+| create_date | datetime          | NO   |     | NULL              |                                               |
+| last_update | timestamp         | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+9 rows in set (0.0061 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select count(*) from customer;
++----------+
+| count(*) |
++----------+
+|      599 |
++----------+
+1 row in set (0.0111 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > use tbd1;
+Default schema set to `tbd1`.
+Fetching global names, object names from `tbd1` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table cliente like sakila.customer;
+Query OK, 0 rows affected (0.0419 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > show tables;
++----------------+
+| Tables_in_tbd1 |
++----------------+
+| cliente        |
+| customer       |
+| persona        |
+| student        |
++----------------+
+4 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > desc cliente;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| customer_id | smallint unsigned | NO   | PRI | NULL              | auto_increment                                |
+| store_id    | tinyint unsigned  | NO   | MUL | NULL              |                                               |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   | MUL | NULL              |                                               |
+| email       | varchar(50)       | YES  |     | NULL              |                                               |
+| address_id  | smallint unsigned | NO   | MUL | NULL              |                                               |
+| active      | tinyint(1)        | NO   |     | 1                 |                                               |
+| create_date | datetime          | NO   |     | NULL              |                                               |
+| last_update | timestamp         | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+9 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > create tamporaty table cliente_temp like sakila.customer;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tamporaty table cliente_temp like sakila.customer' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > create tamporary table cliente_temp like sakila.customer;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tamporary table cliente_temp like sakila.customer' at line 1
+ MySQL  localhost:3306 ssl  tbd1  SQL > create table cliente_datos as select * from sakila.customer;
+Query OK, 599 rows affected (0.0374 sec)
+
+Records: 599  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd1  SQL > desc cliente;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| customer_id | smallint unsigned | NO   | PRI | NULL              | auto_increment                                |
+| store_id    | tinyint unsigned  | NO   | MUL | NULL              |                                               |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   | MUL | NULL              |                                               |
+| email       | varchar(50)       | YES  |     | NULL              |                                               |
+| address_id  | smallint unsigned | NO   | MUL | NULL              |                                               |
+| active      | tinyint(1)        | NO   |     | 1                 |                                               |
+| create_date | datetime          | NO   |     | NULL              |                                               |
+| last_update | timestamp         | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+9 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL > select * from cliente;
+Empty set (0.0030 sec)
+ MySQL  localhost:3306 ssl  tbd1  SQL >
